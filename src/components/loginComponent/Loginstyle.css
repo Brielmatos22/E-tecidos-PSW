@@ -1,0 +1,162 @@
+
+#root > div:has(form) {
+    --login-ink: #2d2925;
+    --login-muted: #756b62;
+    --login-line: #ded5ca;
+    --login-accent: #a56c35;
+    --login-accent-dark: #7f4e26;
+    box-sizing: border-box;
+    width: min(100%, 520px);
+    min-height: 100svh;
+    margin: 0 auto;
+    padding: clamp(42px, 10vh, 96px) 24px 48px;
+    color: var(--login-ink);
+    background: #fbf8f3;
+    text-align: left;
+}
+
+#root > div:has(form) > div:first-child {
+    margin-bottom: 28px;
+    text-align: center;
+}
+
+#root > div:has(form) h2,
+#root > div:has(form) H2 {
+    margin: 0;
+    color: var(--login-ink);
+    font-size: clamp(2rem, 7vw, 2.75rem);
+    font-weight: 700;
+    letter-spacing: -0.04em;
+}
+
+#root > div:has(form) > div:nth-child(2) {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 4px;
+    margin-bottom: 28px;
+    padding: 4px;
+    border: 1px solid var(--login-line);
+    border-radius: 10px;
+    background: #f1ebe3;
+}
+
+#root > div:has(form) > div:nth-child(2) > button,
+#root > div:has(form) > div:nth-child(2) > div:last-child {
+    display: none;
+}
+
+#root > div:has(form) > div:nth-child(2) > .login-tab {
+    border: 0;
+    padding: 11px 12px;
+    border-radius: 7px;
+    color: var(--login-muted);
+    background: transparent;
+    font: inherit;
+    font-size: 0.9rem;
+    font-weight: 700;
+    text-align: center;
+    cursor: pointer;
+    transition: color 0.2s ease, background 0.2s ease, box-shadow 0.2s ease;
+}
+
+#root > div:has(form) > div:nth-child(2) > .login-tab:hover {
+    color: var(--login-accent-dark);
+    background: #fffdf9;
+}
+
+#root > div:has(form) form {
+    display: grid;
+    gap: 16px;
+}
+
+#root > div:has(form) form input {
+    box-sizing: border-box;
+    width: 100%;
+    min-height: 50px;
+    padding: 13px 15px;
+    border: 1px solid var(--login-line);
+    border-radius: 7px;
+    color: var(--login-ink);
+    background: #fffdf9;
+    font: inherit;
+    transition: border-color 0.2s ease, box-shadow 0.2s ease;
+}
+
+#root > div:has(form) form input::placeholder {
+    color: #9b9086;
+}
+
+#root > div:has(form) form input:focus {
+    outline: none;
+    border-color: var(--login-accent);
+    box-shadow: 0 0 0 3px rgba(165, 108, 53, 0.15);
+}
+
+#root > div:has(form) form > div {
+    margin-top: -7px;
+    color: var(--login-accent-dark);
+    font-size: 0.82rem;
+    font-weight: 700;
+    text-align: right;
+    cursor: pointer;
+}
+
+#root > div:has(form) form > button {
+    min-height: 50px;
+    margin-top: 4px;
+    border: 0;
+    border-radius: 7px;
+    color: #fff;
+    background: var(--login-accent);
+    font: inherit;
+    font-weight: 700;
+    cursor: pointer;
+    transition: background 0.2s ease, transform 0.2s ease;
+}
+
+#root > div:has(form) form > button:hover,
+#root > div:has(form) form > button:focus-visible {
+    background: var(--login-accent-dark);
+}
+
+#root > div:has(form) form > button:active {
+    transform: translateY(1px);
+}
+
+#root > div:has(form) form > p {
+    margin-top: 8px;
+    color: var(--login-muted);
+    font-size: 0.88rem;
+    text-align: center;
+}
+
+#root > div:has(form) form > p .link-cadastro-botao {
+    padding: 0;
+    border: 0;
+    color: var(--login-accent-dark);
+    background: transparent;
+    font: inherit;
+    font-weight: 700;
+    cursor: pointer;
+}
+
+#root > div:has(form) form > p a {
+    margin-left: 5px;
+    color: var(--login-accent-dark);
+    font-weight: 700;
+    text-decoration: none;
+}
+
+#root > div:has(form) form > p a:hover,
+#root > div:has(form) form > p a:focus-visible,
+#root > div:has(form) form > p .link-cadastro-botao:hover,
+#root > div:has(form) form > p .link-cadastro-botao:focus-visible,
+#root > div:has(form) form > div:hover {
+    text-decoration: underline;
+}
+
+@media (max-width: 480px) {
+    #root > div:has(form) {
+        padding-inline: 18px;
+    }
+}

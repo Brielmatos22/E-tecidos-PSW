@@ -1,119 +1,13 @@
-<!DOCTYPE html>
-<html lang="pt-br">
-
-<!--Precisei fazer algo idiota e simples só para ri-->
-
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Tenha aura</title>
-    <link rel="stylesheet" href="style.css">
-</head>
-
-<body>
-    <header class="cabeca">
-        <div class="dv-header">
-            <div class="dv-titulo">
-                <p class="tituloProjeto">E-tecidos</p>
-            </div>
-
-            <nav class="dv-ul" aria-label="Navegação principal">
-                <ul>
-                    <li><a href="login.html">Login</a></li>
-                    <li><a href="cadastro.html">Cadastro</a></li>
-                    <li><a href="#sobre">Sobre nós</a></li>
-                    <li><a href="#contatos">Contatos</a></li>
-                    <li><a href="#ajuda">Ajuda</a></li>
-                </ul>
-            </nav>
-        </div>
-    </header>
-
-    <main class="vitrine">
-        <section class="produtos" aria-labelledby="titulo-produtos">
-            <div class="cabecalho-produtos">
-                <p class="etiqueta">Nossa coleção</p>
-                <h1 id="titulo-produtos">Tecidos para cada projeto</h1>
-                <p>Conheça alguns dos nossos produtos. Passe o mouse na imagem ou leia mais sobre cada opção.</p>
-            </div>
-
-            <div class="grade-produtos">
-                <article class="produto">
-                    <div class="area-imagem">
-                        <img class="imagem-produto"
-                            src="https://images.unsplash.com/photo-1604324007962-8a01e1c74a95?auto=format&fit=crop&w=900&q=85"
-                            alt="Rolos de tecido de algodão em tons neutros">
-                    </div>
-                    <div class="info-produto">
-                        <h2>Algodão natural</h2>
-                        <p class="resumo-produto">Leve, macio e versátil para roupas e decoração.</p>
-                        <details class="mais-produto">
-                            <summary>Saiba mais</summary>
-                            <p>Nosso algodão natural tem toque suave, boa respirabilidade e acabamento
-                                durável. É uma escolha confortável para peças do dia a dia.</p>
-                        </details>
-                    </div>
-                </article>
-
-                <article class="produto">
-                    <div class="area-imagem">
-                        <img class="imagem-produto"
-                            src="https://images.unsplash.com/photo-1558769132-cb1aea458c5e?auto=format&fit=crop&w=900&q=85"
-                            alt="Tecidos coloridos organizados em uma loja">
-                    </div>
-                    <div class="info-produto">
-                        <h2>Linho premium</h2>
-                        <p class="resumo-produto">Elegância e frescor para ambientes e peças especiais.</p>
-                        <details class="mais-produto">
-                            <summary>Saiba mais</summary>
-                            <p>O linho premium combina textura marcante, alta resistência e sensação
-                                refrescante, criando um visual sofisticado em qualquer composição.</p>
-                        </details>
-                    </div>
-                </article>
-
-                <article class="produto">
-                    <div class="area-imagem">
-                        <img class="imagem-produto"
-                            src="https://images.unsplash.com/photo-1610701596007-11502861dcfa?auto=format&fit=crop&w=900&q=85"
-                            alt="Textura de tecido artesanal em tom terracota">
-                    </div>
-                    <div class="info-produto">
-                        <h2>Trama artesanal</h2>
-                        <p class="resumo-produto">Textura e personalidade para projetos autênticos.</p>
-                        <details class="mais-produto">
-                            <summary>Saiba mais</summary>
-                            <p>Produzida com fios selecionados, a trama artesanal valoriza o trabalho
-                                manual e acrescenta calor e identidade à sua decoração.</p>
-                        </details>
-                    </div>
-                </article>
-            </div>
-        </section>
-    </main>
-
-    <script>
-        const produtos = document.querySelectorAll(".produto");
-
-        produtos.forEach((produto) => {
-            const imagem = produto.querySelector(".imagem-produto");
-            const detalhes = produto.querySelector(".mais-produto");
-
-            imagem.addEventListener("mouseenter", () => {
-                document.querySelectorAll(".mais-produto[open]").forEach((aberto) => {
-                    aberto.open = false;
-                });
-            });
-
-            detalhes.addEventListener("toggle", () => {
-                if (detalhes.open) {
-                    document.querySelectorAll(".mais-produto").forEach((outro) => {
-                        if (outro !== detalhes) outro.open = false;
-                    });
-                }
-            });
-        });
-    </script>
-
-    </body>
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>e-tecidos-psw</title>
+  </head>
+  <body>
+    <div id="root"></div>
+    <script type="module" src="/src/main.jsx"></script>
+  </body>
 </html>
