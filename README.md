@@ -1,56 +1,107 @@
 # E-tecidos — versão React
 
-Conversão do projeto estático (HTML + CSS + JS) para React, usando Vite e React Router.
+Tutorial para rodar o site no seu computador (ambiente local).
 
-## Estrutura
+## Pré-requisitos
 
-```
-src/
-  main.jsx            -> ponto de entrada, monta o BrowserRouter
-  App.jsx             -> define as rotas (/, /login, /cadastro)
-  style.css           -> o mesmo CSS original, sem alterações
-  data/
-    produtos.js        -> dados dos cards de produto (antes hardcoded no HTML)
-  components/
-    Header.jsx          -> cabeçalho reutilizado nas 3 páginas (varia por "variant")
-    ProdutoCard.jsx      -> card de produto com <details> controlado
-  pages/
-    Index.jsx            -> antiga index.html (vitrine de produtos)
-    Login.jsx             -> antiga login.html
-    Cadastro.jsx          -> antiga cadastro.html
+- **Git** instalado (para clonar o repositório)
+- **Node.js** instalado (inclui o `npm`) — baixe em [nodejs.org](https://nodejs.org), versão LTS
+
+Para conferir se já tem tudo instalado, rode no terminal:
+
+```bash
+git --version
+node --version
+npm --version
 ```
 
-## O que mudou em relação ao projeto original
+Se algum desses comandos der erro, instale a ferramenta que faltou antes de continuar.
 
-- **Roteamento**: as 3 páginas HTML viraram rotas do `react-router-dom` (`/`, `/login`, `/cadastro`),
-  então os links usam `<Link>` em vez de `<a href="...html">`.
-- **Interatividade do accordion de produtos** (`index.html`): a lógica que manipulava o DOM
-  diretamente (`querySelectorAll`, `.open = false`) virou um único estado `abertoId` no componente
-  `Index`, controlando qual card está aberto.
-- **Toggle pessoa física / jurídica** (`cadastro.html`): a lógica de habilitar/desabilitar campos
-  virou um estado `tipoPessoa` no componente `Cadastro`, e os atributos `disabled`/`required`/`hidden`
-  são derivados desse estado.
-- **Formulário de login**: os inputs viraram controlados (`useState`) como ponto de partida para
-  integrar com uma API depois.
-- O **CSS não foi alterado** — todas as classes (`.produto`, `.cabeca`, `.formulario-cadastro`, etc.)
-  permanecem as mesmas, só trocando `class` por `className` e `for` por `htmlFor` no JSX.
-- O `contador.js` original era um script solto de exemplo (`contarAura`, `soma`) sem uso nas páginas,
-  então não foi incluído no app — se você precisar dele em algum componente, é só criar
-  `src/utils/contador.js` com essas funções e importar.
+## Passo 1 — Clonar o repositório
 
-## Como rodar
+Escolha uma pasta no seu computador (ex: Área de Trabalho) e rode:
+
+```bash
+git clone https://github.com/Brielmatos22/E-tecidos-PSW.git
+cd E-tecidos-PSW
+```
+
+## Passo 2 — Instalar as dependências
+
+Ainda dentro da pasta do projeto, rode:
 
 ```bash
 npm install
+```
+
+Isso baixa o React, o Vite e as demais bibliotecas usadas no projeto. Pode demorar um pouco na primeira vez.
+
+## Passo 3 — Iniciar o servidor local
+
+```bash
 npm run dev
 ```
 
-Abre em `http://localhost:5173`.
+O terminal vai mostrar uma mensagem parecida com esta:
 
-Para gerar a versão de produção:
+```
+  VITE ready
+  ➜  Local:   http://localhost:5173/
+```
+
+## Passo 4 — Abrir no navegador
+
+Copie o endereço mostrado (geralmente `http://localhost:5173`) e cole na barra do navegador.
+
+O site vai abrir na página inicial (vitrine de produtos). Pelo menu, você acessa:
+
+- **Início** → página de produtos (`/`)
+- **Login** → página de login (`/login`)
+- **Cadastro** → página de cadastro (`/cadastro`)
+
+Qualquer alteração que você fizer nos arquivos dentro de `src/` aparece automaticamente no navegador, sem precisar reiniciar o servidor.
+
+## Passo 5 — Parar o servidor
+
+Quando terminar de visualizar, volte ao terminal e aperte `Ctrl + C`.
+
+## Gerar a versão de produção (opcional)
+
+Se quiser gerar os arquivos finais otimizados para publicar em um servidor:
 
 ```bash
 npm run build
 ```
 
-Os arquivos finais ficam em `dist/`.
+Os arquivos ficam na pasta `dist/`. Para conferir como ficaram antes de publicar:
+
+```bash
+npm run preview
+```
+
+## Estrutura do projeto
+
+```
+src/
+  main.jsx            -> ponto de entrada, monta o BrowserRouter
+  App.jsx             -> define as rotas (/, /login, /cadastro)
+  style.css           -> CSS do projeto
+  data/
+    produtos.js        -> dados dos cards de produto
+  components/
+    Header.jsx          -> cabeçalho reutilizado nas 3 páginas
+    ProdutoCard.jsx      -> card de produto com accordion "Saiba mais"
+  pages/
+    Index.jsx            -> vitrine de produtos
+    Login.jsx             -> página de login
+    Cadastro.jsx          -> página de cadastro
+```
+
+## Problemas comuns
+
+| Sintoma | Causa provável | Solução |
+|---|---|---|
+| `npm: command not found` / `não é reconhecido` | Node.js não instalado | Instale em nodejs.org e reabra o terminal |
+| `git: command not found` | Git não instalado | Instale o Git for Windows / Xcode Command Line Tools (Mac) |
+| Porta 5173 já em uso | Outro processo rodando na mesma porta | Feche o outro processo ou deixe o Vite sugerir outra porta automaticamente |
+| Página em branco no navegador | Servidor ainda não terminou de subir | Espere a mensagem "Local: http://..." aparecer no terminal antes de abrir |
