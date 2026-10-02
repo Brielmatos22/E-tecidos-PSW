@@ -1,0 +1,127 @@
+.pagina-login {
+  min-height: 100vh;
+  background: linear-gradient(180deg, #f5f1ec 0%, #f6efe9 100%);
+  color: var(--text);
+}
+
+.area-login {
+  display: grid;
+  place-items: center;
+  min-height: 100vh;
+  padding: 32px 20px;
+}
+
+.cartao-login {
+  width: min(440px, 100%);
+  padding: clamp(28px, 6vw, 48px);
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  background: rgba(255, 255, 255, 0.9);
+  box-shadow: var(--shadow-md);
+}
+
+.marca-login {
+  display: block;
+  margin-bottom: 34px;
+  color: var(--primary);
+  font-size: 1.5rem;
+  font-weight: 800;
+  text-align: center;
+  text-decoration: none;
+  letter-spacing: 0.04em;
+}
+
+.introducao-login { margin-bottom: 24px; text-align: center; }
+
+.introducao-login h1 {
+  margin-bottom: 10px;
+  color: var(--text);
+  font-size: clamp(2rem, 4vw, 2.8rem);
+  line-height: 1.1;
+}
+
+.introducao-login p,
+.link-cadastro,
+.campo-login small { color: var(--text-soft); }
+
+.botao-google {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 12px;
+  min-height: 48px;
+  border: 1px solid rgba(128, 97, 64, 0.18);
+  border-radius: 12px;
+  background: #fff;
+  color: var(--text);
+  font-weight: 700;
+  text-decoration: none;
+}
+
+.botao-google:hover,
+.botao-google:focus-visible { border-color: rgba(154, 107, 47, 0.4); background: #fffaf3; }
+.botao-google svg { width: 20px; height: 20px; }
+
+.divisor-login {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  margin: 26px 0;
+  color: var(--muted);
+  font-size: 0.78rem;
+  white-space: nowrap;
+}
+
+.divisor-login::before,
+.divisor-login::after { content: ""; height: 1px; flex: 1; background: rgba(154, 107, 47, 0.14); }
+.formulario-login { display: grid; gap: 20px; }
+.campo-login { display: flex; flex-direction: column; gap: 8px; }
+
+.campo-login label { font-size: 0.9rem; font-weight: 800; color: var(--text); }
+
+.campo-login input {
+  width: 100%;
+  padding: 13px;
+  border: 1px solid rgba(128, 97, 64, 0.2);
+  border-radius: 12px;
+  background: rgba(255, 255, 255, 0.9);
+  color: var(--text);
+}
+
+.campo-login input:focus {
+  border-color: rgba(154, 107, 47, 0.7);
+  box-shadow: 0 0 0 4px rgba(212, 167, 103, 0.18);
+  outline: none;
+}
+
+.rotulo-senha { display: flex; justify-content: space-between; gap: 8px; }
+
+.rotulo-senha a,
+.link-cadastro a { color: var(--primary); font-weight: 700; text-decoration: none; }
+
+.rotulo-senha a:hover,
+.rotulo-senha a:focus-visible,
+.link-cadastro a:hover,
+.link-cadastro a:focus-visible { color: var(--primary-dark); text-decoration: underline; }
+
+.campo-login small { font-size: 0.78rem; line-height: 1.4; }
+
+.botao-login {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  min-height: 48px;
+  border: 0;
+  border-radius: 999px;
+  color: #fff;
+  background: linear-gradient(135deg, var(--primary) 0%, var(--primary-dark) 100%);
+  font: inherit;
+  font-weight: 800;
+  cursor: pointer;
+  transition: transform var(--transition), box-shadow var(--transition), background var(--transition);
+  box-shadow: 0 14px 26px rgba(154, 107, 47, 0.22);
+}
+
+.botao-login:hover,
+.botao-login:focus-visible { transform: translateY(-1px); box-shadow: 0 18px 30px rgba(154, 107, 47, 0.24); }
+.link-cadastro { margin-top: 28px; font-size: 0.9rem; text-align: center; }

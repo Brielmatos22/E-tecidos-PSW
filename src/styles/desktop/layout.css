@@ -1,0 +1,11 @@
+.header-desktop-nav {
+  display: block;
+}
+
+.header-mobile-actions {
+  display: none;
+}
+
+.footer-desktop {
+  display: block;
+}

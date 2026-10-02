@@ -1,0 +1,29 @@
+[
+  {
+    "id": "USR-001",
+    "nome": "Administrador E-tecidos",
+    "email": "admin@e-tecidos.com.br",
+    "senha": "Admin@123",
+    "tipo": "admin",
+    "contaId": null,
+    "permissoes": ["vendas:read", "vendas:write", "produtos:write", "contas:manage"]
+  },
+  {
+    "id": "USR-002",
+    "nome": "Casa Aurora Decorações",
+    "email": "compras@casaaurora.exemplo.com",
+    "senha": "Fornecedor@123",
+    "tipo": "juridica",
+    "contaId": "PJ-001",
+    "permissoes": ["vendas:read", "produtos:write"]
+  },
+  {
+    "id": "USR-003",
+    "nome": "Marina Albuquerque",
+    "email": "marina.albuquerque@exemplo.com",
+    "senha": "Cliente@123",
+    "tipo": "fisica",
+    "contaId": "PF-001",
+    "permissoes": []
+  }
+]

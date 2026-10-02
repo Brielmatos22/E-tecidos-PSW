@@ -1,0 +1,52 @@
+[
+  {
+    "id": "PJ-001",
+    "razaoSocial": "Casa Aurora Decorações",
+    "cnpj": "11.222.333/0001-44",
+    "email": "compras@casaaurora.exemplo.com",
+    "localizacao": "Rua Barão de Mesquita, 300 - Rio de Janeiro/RJ",
+    "descricao": "Loja de decoração e cortinas sob medida.",
+    "status": "ativa",
+    "criadoEm": "2025-10-20"
+  },
+  {
+    "id": "PJ-002",
+    "razaoSocial": "Confecções Boa Vista ME",
+    "cnpj": "22.333.444/0001-55",
+    "email": "contato@boavista.exemplo.com",
+    "localizacao": "Estrada do Gabinal, 1200 - Duque de Caxias/RJ",
+    "descricao": "Confecção de uniformes e roupas de cama.",
+    "status": "ativa",
+    "criadoEm": "2025-12-01"
+  },
+  {
+    "id": "PJ-003",
+    "razaoSocial": "Ateliê Fio & Cor Ltda",
+    "cnpj": "33.444.555/0001-66",
+    "email": "atelie@fioecor.exemplo.com",
+    "localizacao": "Rua Visconde de Pirajá, 55 - Rio de Janeiro/RJ",
+    "descricao": "Ateliê de moda autoral e peças artesanais.",
+    "status": "ativa",
+    "criadoEm": "2026-01-16"
+  },
+  {
+    "id": "PJ-004",
+    "razaoSocial": "Estofados Serra Azul",
+    "cnpj": "44.555.666/0001-77",
+    "email": "financeiro@serraazul.exemplo.com",
+    "localizacao": "Av. das Indústrias, 800 - Nova Iguaçu/RJ",
+    "descricao": "Fabricação e reforma de sofás e poltronas.",
+    "status": "suspensa",
+    "criadoEm": "2026-04-09"
+  },
+  {
+    "id": "PJ-005",
+    "razaoSocial": "Studio Lã e Linha",
+    "cnpj": "55.666.777/0001-88",
+    "email": "oi@laelinha.exemplo.com",
+    "localizacao": "Rua da Matriz, 41 - Petrópolis/RJ",
+    "descricao": "Estúdio de costura criativa e cursos.",
+    "status": "ativa",
+    "criadoEm": "2026-06-22"
+  }
+]

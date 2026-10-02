@@ -1,0 +1,39 @@
+{
+  "fisica": {
+    "titulo": "Contas de pessoa física",
+    "descricao": "Consulte, edite, suspenda ou exclua as contas de clientes pessoa física.",
+    "prefixo": "PF",
+    "colunas": [
+      { "chave": "nome", "rotulo": "Nome" },
+      { "chave": "cpf", "rotulo": "CPF" },
+      { "chave": "email", "rotulo": "E-mail" }
+    ],
+    "campos": [
+      { "name": "nome", "label": "Nome completo", "type": "text", "autoComplete": "name" },
+      { "name": "cpf", "label": "CPF", "type": "text", "inputMode": "numeric", "placeholder": "000.000.000-00", "pattern": "[0-9.\\-]{11,14}" },
+      { "name": "nascimento", "label": "Data de nascimento", "type": "date" },
+      { "name": "email", "label": "E-mail", "type": "email", "autoComplete": "email" },
+      { "name": "endereco", "label": "Endereço", "type": "text", "largo": true }
+    ],
+    "vazio": { "nome": "", "cpf": "", "nascimento": "", "email": "", "endereco": "" }
+  },
+  "juridica": {
+    "titulo": "Contas de pessoa jurídica",
+    "descricao": "Consulte, edite, suspenda ou exclua as contas de empresas cadastradas.",
+    "prefixo": "PJ",
+    "colunas": [
+      { "chave": "razaoSocial", "rotulo": "Empresa" },
+      { "chave": "cnpj", "rotulo": "CNPJ" },
+      { "chave": "localizacao", "rotulo": "Localização" },
+      { "chave": "email", "rotulo": "E-mail" }
+    ],
+    "campos": [
+      { "name": "razaoSocial", "label": "Nome da empresa", "type": "text", "autoComplete": "organization", "largo": true },
+      { "name": "cnpj", "label": "CNPJ", "type": "text", "inputMode": "numeric", "placeholder": "00.000.000/0000-00", "pattern": "[0-9./\\-]{14,18}" },
+      { "name": "email", "label": "E-mail", "type": "email", "autoComplete": "email" },
+      { "name": "localizacao", "label": "Localização", "type": "text", "largo": true },
+      { "name": "descricao", "label": "Descrição do que a empresa faz", "type": "textarea", "largo": true }
+    ],
+    "vazio": { "razaoSocial": "", "cnpj": "", "email": "", "localizacao": "", "descricao": "" }
+  }
+}

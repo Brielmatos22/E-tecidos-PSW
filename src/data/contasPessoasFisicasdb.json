@@ -1,0 +1,62 @@
+[
+  {
+    "id": "PF-001",
+    "nome": "Marina Albuquerque",
+    "cpf": "111.222.333-44",
+    "email": "marina.albuquerque@exemplo.com",
+    "nascimento": "1990-04-12",
+    "endereco": "Rua das Acácias, 120 - Niterói/RJ",
+    "status": "ativa",
+    "criadoEm": "2025-11-03"
+  },
+  {
+    "id": "PF-002",
+    "nome": "Rafael Tavares",
+    "cpf": "222.333.444-55",
+    "email": "rafael.tavares@exemplo.com",
+    "nascimento": "1985-09-30",
+    "endereco": "Av. Brasil, 4500, apto 302 - Rio de Janeiro/RJ",
+    "status": "ativa",
+    "criadoEm": "2025-12-18"
+  },
+  {
+    "id": "PF-003",
+    "nome": "Juliana Prado",
+    "cpf": "333.444.555-66",
+    "email": "juliana.prado@exemplo.com",
+    "nascimento": "1994-01-22",
+    "endereco": "Rua do Comércio, 89 - Petrópolis/RJ",
+    "status": "suspensa",
+    "criadoEm": "2026-02-07"
+  },
+  {
+    "id": "PF-004",
+    "nome": "Carlos Eduardo Lima",
+    "cpf": "444.555.666-77",
+    "email": "carlos.lima@exemplo.com",
+    "nascimento": "1979-07-05",
+    "endereco": "Rua Sete de Setembro, 15 - Duque de Caxias/RJ",
+    "status": "ativa",
+    "criadoEm": "2026-03-25"
+  },
+  {
+    "id": "PF-005",
+    "nome": "Beatriz Nogueira",
+    "cpf": "555.666.777-88",
+    "email": "beatriz.nogueira@exemplo.com",
+    "nascimento": "1998-11-17",
+    "endereco": "Travessa das Flores, 7 - Nova Iguaçu/RJ",
+    "status": "ativa",
+    "criadoEm": "2026-05-14"
+  },
+  {
+    "id": "PF-006",
+    "nome": "Thiago Moreira",
+    "cpf": "666.777.888-99",
+    "email": "thiago.moreira@exemplo.com",
+    "nascimento": "1988-03-09",
+    "endereco": "Rua Marechal Deodoro, 230 - Niterói/RJ",
+    "status": "ativa",
+    "criadoEm": "2026-07-02"
+  }
+]
