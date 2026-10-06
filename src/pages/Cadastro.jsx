@@ -169,15 +169,15 @@ export default function Cadastro() {
             </fieldset>
 
             <fieldset className="border rounded p-3 mb-4">
-              <legend className="float-none w-auto px-2 fs-6 fw-semibold">Contato e pagamento</legend>
+              <legend className="float-none w-auto px-2 fs-6 fw-semibold">Contato e pagamento(Opcional)</legend>
               <div className="grade-formulario">
                 <div className="campo campo-largo">
                   <label htmlFor="email">E-mail</label>
-                  <input className="form-control" id="email" name="email" type="email" autoComplete="email" required />
+                  <input className="form-control" id="email" name="email" type="email" autoComplete="email"/>
                 </div>
                 <div className="campo campo-largo">
                   <label htmlFor="nome-cartao">Nome no cartão</label>
-                  <input className="form-control" id="nome-cartao" name="nome_cartao" type="text" autoComplete="cc-name" required />
+                  <input className="form-control" id="nome-cartao" name="nome_cartao" type="text" autoComplete="cc-name"/>
                 </div>
                 <div className="campo campo-largo">
                   <label htmlFor="numero-cartao">Número do cartão</label>
@@ -188,12 +188,11 @@ export default function Cadastro() {
                     type="text"
                     inputMode="numeric"
                     autoComplete="cc-number"
-                    required
                   />
                 </div>
                 <div className="campo">
                   <label htmlFor="validade">Validade</label>
-                  <input className="form-control" id="validade" name="validade" type="month" autoComplete="cc-exp" required />
+                  <input className="form-control" id="validade" name="validade" type="month" autoComplete="cc-exp"/>
                 </div>
                 <div className="campo">
                   <label htmlFor="codigo-seguranca">Código de segurança</label>
@@ -205,7 +204,6 @@ export default function Cadastro() {
                     inputMode="numeric"
                     maxLength={4}
                     autoComplete="cc-csc"
-                    required
                   />
                 </div>
               </div>
