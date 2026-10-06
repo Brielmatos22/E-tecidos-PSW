@@ -1,15 +1,37 @@
 {
   "produtos": [
     {
-      "id": "algodao",
-      "titulo": "Algodão natural",
-      "resumo": "Leve, macio e versátil para roupas e decoração.",
-      "detalhe": "Nosso algodão natural tem toque suave, boa respirabilidade e acabamento durável. É uma escolha confortável para peças do dia a dia.",
-      "imagem": "https://images.unsplash.com/photo-1604324007962-8a01e1c74a95?auto=format&fit=crop&w=900&q=85",
-      "alt": "Rolos de tecido de algodão em tons neutros",
-      "preco": 89,
+      "id": "seda",
+      "titulo": "Seda pura",
+      "resumo": "Brilho sofisticado e caimento fluido para peças refinadas.",
+      "detalhe": "A seda pura tem toque acetinado, brilho natural e leveza excepcional. Ideal para vestidos, lenços e detalhes de decoração que pedem um acabamento luxuoso.",
+      "imagem": "https://images.unsplash.com/photo-1528458909336-e7a0adfed0a5?auto=format&fit=crop&w=900&q=85",
+      "alt": "Tecido de seda em tom champagne com dobras suaves",
+      "preco": 210,
       "fornecedorId": "PJ-001",
-      "custoPorMetro": 20
+      "custoPorMetro": 82
+    },
+    {
+      "id": "veludo",
+      "titulo": "Veludo texturizado",
+      "resumo": "Maciez profunda e presença marcante para estofados e cortinas.",
+      "detalhe": "O veludo texturizado oferece toque aveludado, cor intensa e ótima durabilidade. Traz aconchego e sofisticação para sofás, almofadas e cortinas.",
+      "imagem": "https://images.unsplash.com/photo-1596464716127-f2a82984de30?auto=format&fit=crop&w=900&q=85",
+      "alt": "Tecido de veludo azul-petróleo com textura macia",
+      "preco": 156,
+      "fornecedorId": "PJ-001",
+      "custoPorMetro": 58
+    },
+    {
+      "id": "jeans",
+      "titulo": "Jeans stonewashed",
+      "resumo": "Resistência e estilo casual para uso diário.",
+      "detalhe": "O jeans stonewashed passa por lavagem especial que garante maciez desde o primeiro uso, mantendo a robustez do tecido. Excelente para roupas, bolsas e projetos de customização.",
+      "imagem": "https://images.unsplash.com/photo-1542272604-787c3835535d?auto=format&fit=crop&w=900&q=85",
+      "alt": "Rolo de tecido jeans em azul médio",
+      "preco": 72,
+      "fornecedorId": "PJ-001",
+      "custoPorMetro": 24
     },
     {
       "id": "linho",
@@ -280,7 +302,7 @@
     {
       "id": "PF-001",
       "nome": "Marina Albuquerque",
-      "cpf": "111.222.333-44",
+      "cpf": "158.813.998-03",
       "email": "marina.albuquerque@exemplo.com",
       "nascimento": "1990-04-12",
       "endereco": "Rua das Acácias, 120 - Niterói/RJ",
@@ -290,7 +312,7 @@
     {
       "id": "PF-002",
       "nome": "Rafael Tavares",
-      "cpf": "222.333.444-55",
+      "cpf": "698.797.309-17",
       "email": "rafael.tavares@exemplo.com",
       "nascimento": "1985-09-30",
       "endereco": "Av. Brasil, 4500, apto 302 - Rio de Janeiro/RJ",
@@ -300,7 +322,7 @@
     {
       "id": "PF-003",
       "nome": "Juliana Prado",
-      "cpf": "333.444.555-66",
+      "cpf": "114.170.753-50",
       "email": "juliana.prado@exemplo.com",
       "nascimento": "1994-01-22",
       "endereco": "Rua do Comércio, 89 - Petrópolis/RJ",
@@ -310,7 +332,7 @@
     {
       "id": "PF-004",
       "nome": "Carlos Eduardo Lima",
-      "cpf": "444.555.666-77",
+      "cpf": "645.568.151-77",
       "email": "carlos.lima@exemplo.com",
       "nascimento": "1979-07-05",
       "endereco": "Rua Sete de Setembro, 15 - Duque de Caxias/RJ",
@@ -320,7 +342,7 @@
     {
       "id": "PF-005",
       "nome": "Beatriz Nogueira",
-      "cpf": "555.666.777-88",
+      "cpf": "884.472.940-72",
       "email": "beatriz.nogueira@exemplo.com",
       "nascimento": "1998-11-17",
       "endereco": "Travessa das Flores, 7 - Nova Iguaçu/RJ",
@@ -330,7 +352,7 @@
     {
       "id": "PF-006",
       "nome": "Thiago Moreira",
-      "cpf": "666.777.888-99",
+      "cpf": "557.616.987-57",
       "email": "thiago.moreira@exemplo.com",
       "nascimento": "1988-03-09",
       "endereco": "Rua Marechal Deodoro, 230 - Niterói/RJ",
@@ -342,7 +364,7 @@
     {
       "id": "PJ-001",
       "razaoSocial": "Casa Aurora Decorações",
-      "cnpj": "11.222.333/0001-44",
+      "cnpj": "16.897.684/0001-06",
       "email": "compras@casaaurora.exemplo.com",
       "localizacao": "Rua Barão de Mesquita, 300 - Rio de Janeiro/RJ",
       "descricao": "Loja de decoração e cortinas sob medida.",
@@ -352,7 +374,7 @@
     {
       "id": "PJ-002",
       "razaoSocial": "Confecções Boa Vista ME",
-      "cnpj": "22.333.444/0001-55",
+      "cnpj": "69.788.093/0001-67",
       "email": "contato@boavista.exemplo.com",
       "localizacao": "Estrada do Gabinal, 1200 - Duque de Caxias/RJ",
       "descricao": "Confecção de uniformes e roupas de cama.",
@@ -362,7 +384,7 @@
     {
       "id": "PJ-003",
       "razaoSocial": "Ateliê Fio & Cor Ltda",
-      "cnpj": "33.444.555/0001-66",
+      "cnpj": "20.819.672/0001-30",
       "email": "atelie@fioecor.exemplo.com",
       "localizacao": "Rua Visconde de Pirajá, 55 - Rio de Janeiro/RJ",
       "descricao": "Ateliê de moda autoral e peças artesanais.",
@@ -372,7 +394,7 @@
     {
       "id": "PJ-004",
       "razaoSocial": "Estofados Serra Azul",
-      "cnpj": "44.555.666/0001-77",
+      "cnpj": "73.177.848/0001-64",
       "email": "financeiro@serraazul.exemplo.com",
       "localizacao": "Av. das Indústrias, 800 - Nova Iguaçu/RJ",
       "descricao": "Fabricação e reforma de sofás e poltronas.",
@@ -382,7 +404,7 @@
     {
       "id": "PJ-005",
       "razaoSocial": "Studio Lã e Linha",
-      "cnpj": "55.666.777/0001-88",
+      "cnpj": "64.887.663/0001-52",
       "email": "oi@laelinha.exemplo.com",
       "localizacao": "Rua da Matriz, 41 - Petrópolis/RJ",
       "descricao": "Estúdio de costura criativa e cursos.",

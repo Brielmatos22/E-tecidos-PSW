@@ -2,7 +2,7 @@
   {
     "id": "PJ-001",
     "razaoSocial": "Casa Aurora Decorações",
-    "cnpj": "11.222.333/0001-44",
+    "cnpj": "16.897.684/0001-06",
     "email": "compras@casaaurora.exemplo.com",
     "localizacao": "Rua Barão de Mesquita, 300 - Rio de Janeiro/RJ",
     "descricao": "Loja de decoração e cortinas sob medida.",
@@ -12,7 +12,7 @@
   {
     "id": "PJ-002",
     "razaoSocial": "Confecções Boa Vista ME",
-    "cnpj": "22.333.444/0001-55",
+    "cnpj": "69.788.093/0001-67",
     "email": "contato@boavista.exemplo.com",
     "localizacao": "Estrada do Gabinal, 1200 - Duque de Caxias/RJ",
     "descricao": "Confecção de uniformes e roupas de cama.",
@@ -22,7 +22,7 @@
   {
     "id": "PJ-003",
     "razaoSocial": "Ateliê Fio & Cor Ltda",
-    "cnpj": "33.444.555/0001-66",
+    "cnpj": "20.819.672/0001-30",
     "email": "atelie@fioecor.exemplo.com",
     "localizacao": "Rua Visconde de Pirajá, 55 - Rio de Janeiro/RJ",
     "descricao": "Ateliê de moda autoral e peças artesanais.",
@@ -32,7 +32,7 @@
   {
     "id": "PJ-004",
     "razaoSocial": "Estofados Serra Azul",
-    "cnpj": "44.555.666/0001-77",
+    "cnpj": "73.177.848/0001-64",
     "email": "financeiro@serraazul.exemplo.com",
     "localizacao": "Av. das Indústrias, 800 - Nova Iguaçu/RJ",
     "descricao": "Fabricação e reforma de sofás e poltronas.",
@@ -42,7 +42,7 @@
   {
     "id": "PJ-005",
     "razaoSocial": "Studio Lã e Linha",
-    "cnpj": "55.666.777/0001-88",
+    "cnpj": "64.887.663/0001-52",
     "email": "oi@laelinha.exemplo.com",
     "localizacao": "Rua da Matriz, 41 - Petrópolis/RJ",
     "descricao": "Estúdio de costura criativa e cursos.",

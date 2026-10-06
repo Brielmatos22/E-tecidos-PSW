@@ -1,14 +1,36 @@
 [
   {
-    "id": "algodao",
-    "titulo": "Algodão natural",
-    "resumo": "Leve, macio e versátil para roupas e decoração.",
-    "detalhe": "Nosso algodão natural tem toque suave, boa respirabilidade e acabamento durável. É uma escolha confortável para peças do dia a dia.",
-    "imagem": "https://images.unsplash.com/photo-1604324007962-8a01e1c74a95?auto=format&fit=crop&w=900&q=85",
-    "alt": "Rolos de tecido de algodão em tons neutros",
-    "preco": 89,
+    "id": "seda",
+    "titulo": "Seda pura",
+    "resumo": "Brilho sofisticado e caimento fluido para peças refinadas.",
+    "detalhe": "A seda pura tem toque acetinado, brilho natural e leveza excepcional. Ideal para vestidos, lenços e detalhes de decoração que pedem um acabamento luxuoso.",
+    "imagem": "https://images.unsplash.com/photo-1528458909336-e7a0adfed0a5?auto=format&fit=crop&w=900&q=85",
+    "alt": "Tecido de seda em tom champagne com dobras suaves",
+    "preco": 210,
     "fornecedorId": "PJ-001",
-    "custoPorMetro": 20
+    "custoPorMetro": 82
+  },
+  {
+    "id": "veludo",
+    "titulo": "Veludo texturizado",
+    "resumo": "Maciez profunda e presença marcante para estofados e cortinas.",
+    "detalhe": "O veludo texturizado oferece toque aveludado, cor intensa e ótima durabilidade. Traz aconchego e sofisticação para sofás, almofadas e cortinas.",
+    "imagem": "https://images.unsplash.com/photo-1596464716127-f2a82984de30?auto=format&fit=crop&w=900&q=85",
+    "alt": "Tecido de veludo azul-petróleo com textura macia",
+    "preco": 156,
+    "fornecedorId": "PJ-001",
+    "custoPorMetro": 58
+  },
+  {
+    "id": "jeans",
+    "titulo": "Jeans stonewashed",
+    "resumo": "Resistência e estilo casual para uso diário.",
+    "detalhe": "O jeans stonewashed passa por lavagem especial que garante maciez desde o primeiro uso, mantendo a robustez do tecido. Excelente para roupas, bolsas e projetos de customização.",
+    "imagem": "https://images.unsplash.com/photo-1542272604-787c3835535d?auto=format&fit=crop&w=900&q=85",
+    "alt": "Rolo de tecido jeans em azul médio",
+    "preco": 72,
+    "fornecedorId": "PJ-001",
+    "custoPorMetro": 24
   },
   {
     "id": "linho",
