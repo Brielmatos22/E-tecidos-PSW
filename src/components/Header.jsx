@@ -72,19 +72,41 @@ export default function Header({ variant = "home" }) {
                 <li><a href="#ajuda">Ajuda</a></li>
               </>
             )}
-            {variant === "home" && user && (
-              <>
-                {hasPermission(user, "vendas:read") && <li><NavLink to="/admin">Vendas</NavLink></li>}
-                {hasPermission(user, "produtos:write") && <li><NavLink to="/admin/produtos">Produtos</NavLink></li>}
-                {hasPermission(user, "contas:manage") && (
-                  <>
-                    <li><NavLink to="/admin/contas/pessoa-fisica">Pessoa física</NavLink></li>
-                    <li><NavLink to="/admin/contas/pessoa-juridica">Pessoa jurídica</NavLink></li>
-                  </>
-                )}
-                <li><Link to="/" onClick={signOut}>Sair</Link></li>
-              </>
-            )}
+           {variant === "home" && user && (
+  <>
+    <li><CartLink /></li>
+    <li><Link to="/">Início</Link></li>
+
+    {hasPermission(user, "vendas:read") && (
+      <li><NavLink to="/admin">Vendas</NavLink></li>
+    )}
+
+    {hasPermission(user, "produtos:write") && (
+      <li><NavLink to="/admin/produtos">Produtos</NavLink></li>
+    )}
+
+    {hasPermission(user, "contas:manage") && (
+      <>
+        <li>
+          <NavLink to="/admin/contas/pessoa-fisica">
+            Pessoa física
+          </NavLink>
+        </li>
+        <li>
+          <NavLink to="/admin/contas/pessoa-juridica">
+            Pessoa jurídica
+          </NavLink>
+        </li>
+      </>
+    )}
+
+    <li>
+      <Link to="/" onClick={signOut}>
+        Sair
+      </Link>
+    </li>
+  </>
+)}
             {variant === "admin" && user && (
               <>
                 <li><CartLink /></li>
@@ -111,6 +133,7 @@ export default function Header({ variant = "home" }) {
 
         <div className="header-mobile-actions">
           {user && <CartLink />}
+          {!user && <Link className="botao-login-mobile" to="/login">Login</Link>}
           <div className="menu-usuario" ref={menuRef}>
             <button
               className="botao-menu-usuario"
