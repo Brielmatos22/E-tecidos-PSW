@@ -1,5 +1,15 @@
 const API_BASE = "/api";
 const CACHE_PREFIX = "e-tecidos:cache:v2:";
+const SESSION_KEY = "e-tecidos:session:v1";
+
+function getAuthHeaders() {
+  try {
+    const session = JSON.parse(sessionStorage.getItem(SESSION_KEY) ?? "null");
+    return session?.token ? { Authorization: `Bearer ${session.token}` } : {};
+  } catch {
+    return {};
+  }
+}
 
 export function getCached(collection) {
   if (typeof window === "undefined") return null;
@@ -31,7 +41,10 @@ async function request(collection, { id, method = "GET", data } = {}) {
   const resource = id === undefined ? collection : `${collection}/${encodeURIComponent(id)}`;
   const response = await fetch(`${API_BASE}/${resource}`, {
     method,
-    headers: data === undefined ? undefined : { "Content-Type": "application/json" },
+    headers: {
+      ...getAuthHeaders(),
+      ...(data === undefined ? {} : { "Content-Type": "application/json" }),
+    },
     body: data === undefined ? undefined : JSON.stringify(data),
   });
   const responseBody = await response.text();

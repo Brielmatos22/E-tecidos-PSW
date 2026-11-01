@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import { useQuery } from "@tanstack/react-query";
 import Header from "../components/Header.jsx";
 import ProdutoCard from "../components/ProdutoCard.jsx";
 import Bottom from "../components/Bottom.jsx";
@@ -9,29 +9,15 @@ import { useAuth } from "../auth/js/useAuth.js";
 export default function Index({ onAdicionarCarrinho }) {
   const { abertoId, alternarDetalhes, fecharDetalhes } = useGradeProdutos();
   const { user } = useAuth();
-  const [cacheInicial] = useState(() => getCached("produtos"));
-  const [produtos, setProdutos] = useState(() => cacheInicial ?? []);
-  const [carregando, setCarregando] = useState(() => cacheInicial === null);
-  const [erro, setErro] = useState("");
-
-  useEffect(() => {
-    let ativo = true;
-
-    api.list("produtos")
-      .then((registros) => {
-        if (ativo) setProdutos(registros);
-      })
-      .catch((error) => {
-        if (ativo) setErro(error.message);
-      })
-      .finally(() => {
-        if (ativo) setCarregando(false);
-      });
-
-    return () => {
-      ativo = false;
-    };
-  }, []);
+  const {
+    data: produtos = [],
+    isLoading: carregando,
+    error,
+  } = useQuery({
+    queryKey: ["produtos", user?.id ?? null],
+    queryFn: () => api.list("produtos"),
+    initialData: () => getCached("produtos") ?? undefined,
+  });
 
   let listaProdutos;
   if (carregando) {
@@ -67,7 +53,7 @@ export default function Index({ onAdicionarCarrinho }) {
             <p>Conheça alguns dos nossos produtos. Passe o mouse na imagem ou leia mais sobre cada opção.</p>
           </div>
 
-          {erro && <p className="alert alert-danger" role="alert">{erro}</p>}
+          {error && <p className="alert alert-danger" role="alert">{error.message}</p>}
           {listaProdutos}
         </section>
       </main>

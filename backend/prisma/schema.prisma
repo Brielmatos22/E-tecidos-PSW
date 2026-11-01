@@ -1,0 +1,80 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "mongodb"
+  url      = env("MONGODB_URI")
+}
+
+model Product {
+  mongoId       String  @id @default(auto()) @map("_id") @db.ObjectId
+  id            String  @unique
+  titulo        String
+  resumo        String
+  detalhe       String
+  imagem        String
+  alt           String
+  preco         Float
+  fornecedorId  String
+  custoPorMetro Float   @default(0)
+
+  @@map("produtos")
+}
+
+model Sale {
+  mongoId      String  @id @default(auto()) @map("_id") @db.ObjectId
+  id           String  @unique
+  data         String
+  cliente      String
+  tipo         String
+  produto      String
+  metros       Float
+  status       String
+  pagamento    String
+  valor        Float
+  fornecedorId String
+
+  @@map("vendas")
+}
+
+model AccountPhysical {
+  mongoId    String  @id @default(auto()) @map("_id") @db.ObjectId
+  id        String  @unique
+  nome      String
+  cpf       String  @unique
+  nascimento String?
+  email     String
+  endereco  String?
+  status    String  @default("ativa")
+  criadoEm  String?
+
+  @@map("contasPessoaFisica")
+}
+
+model AccountLegal {
+  mongoId     String  @id @default(auto()) @map("_id") @db.ObjectId
+  id          String  @unique
+  razaoSocial String
+  cnpj        String  @unique
+  email       String
+  localizacao String?
+  descricao   String?
+  status      String  @default("ativa")
+  criadoEm    String?
+
+  @@map("contasPessoaJuridica")
+}
+
+model User {
+  mongoId      String   @id @default(auto()) @map("_id") @db.ObjectId
+  id           String   @unique
+  nome         String
+  email        String   @unique
+  passwordHash String
+  tipo         String
+  contaId      String?
+  permissoes   String[] @default([])
+
+  @@map("usuarios")
+}

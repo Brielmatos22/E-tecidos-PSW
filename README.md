@@ -1,6 +1,6 @@
 # E-tecidos
 
-Loja demonstrativa de tecidos feita com **React**, **Vite**, **React Router**, **Bootstrap** e **JSON Server**. Inclui catálogo de produtos, carrinho, login de demonstração e áreas administrativas para vendas, produtos e contas.
+Loja demonstrativa de tecidos feita com **React**, **Vite**, **React Router**, **Bootstrap**, **React Hook Form**, **Zod**, **TanStack Query**, **Express** e **MongoDB**. Inclui catálogo, carrinho, cadastro, login com JWT e áreas administrativas.
 
 ## Protótipos
 
@@ -20,6 +20,7 @@ Loja demonstrativa de tecidos feita com **React**, **Vite**, **React Router**, *
 - **Loja**: catálogo de tecidos com cards de produto e detalhes expansíveis.
 - **Carrinho**: adicionar, alterar quantidade, remover e limpar itens (exige login).
 - **Login e cadastro**, com perfis de acesso por permissão.
+- **Formulários** validados com React Hook Form e Zod; consultas de dados gerenciadas pelo TanStack Query.
 - **Painel administrativo**: histórico de vendas, gestão de produtos e gestão de contas de pessoa física e pessoa jurídica.
 - **Cabeçalho e rodapé** compartilhados, com layout responsivo (desktop e mobile).
 
@@ -36,32 +37,62 @@ Loja demonstrativa de tecidos feita com **React**, **Vite**, **React Router**, *
 | `/admin/contas/pessoa-fisica` | `contas:manage` | Contas de pessoa física |
 | `/admin/contas/pessoa-juridica` | `contas:manage` | Contas de pessoa jurídica |
 
+Após o login, o administrador e o fornecedor pessoa jurídica são direcionados ao painel de vendas (`/admin`). Os dados do fornecedor são limitados à loja vinculada à sua conta. O cliente pessoa física é direcionado à vitrine (`/`).
+
 ## Requisitos
 
 - Node.js compatível com a versão do Vite instalada
 - npm
+- MongoDB (local ou serviço gerenciado)
 
 ## Instalação e execução
 
 ```bash
 npm install
+npm --prefix backend install
 ```
 
-Em um terminal, inicie a API:
+### Configurar o MongoDB para testar
+
+O banco MongoDB e o login da loja são contas diferentes: a URI usa um usuário de banco criado no MongoDB Atlas; depois, quem testa entra no site com uma das contas de demonstração abaixo.
+
+1. No [MongoDB Atlas](https://www.mongodb.com/cloud/atlas), crie ou selecione um cluster. Em **Database Access**, crie um usuário de banco com permissão `readWrite` para o banco `e_tecidos`. Em **Network Access**, autorize o IP da máquina que executará a aplicação.
+2. No Atlas, escolha **Connect > Drivers**, copie a URI do cluster e substitua `<password>` pela senha desse usuário. Se a senha tiver caracteres especiais, codifique-os para URL. Use o nome do banco `e_tecidos` na URI, por exemplo:
+
+   ```text
+   mongodb+srv://<usuario-do-banco>:<senha-codificada>@<cluster>.mongodb.net/e_tecidos?retryWrites=true&w=majority
+   ```
+
+3. Crie `backend/.env` a partir de [`backend/.env.example`](backend/.env.example) e configure pelo menos:
+
+   ```dotenv
+   PORT=3001
+   MONGODB_URI="mongodb+srv://<usuario-do-banco>:<senha-codificada>@<cluster>.mongodb.net/e_tecidos?retryWrites=true&w=majority"
+   JWT_SECRET="<segredo-aleatorio-com-pelo-menos-32-caracteres>"
+   CORS_ORIGIN=http://localhost:5173
+   ```
+
+   Gere o segredo JWT com `node -e "console.log(require('node:crypto').randomBytes(48).toString('base64url'))"`. O arquivo `.env` contém credenciais: não o envie, publique ou faça commit. O Atlas configura o cluster como replica set, requisito do Prisma para operações transacionais.
+4. Instale as dependências e crie as coleções/índices e os dados iniciais:
+
+```bash
+npm install
+npm --prefix backend install
+npm run db:push
+npm run db:seed
+```
+
+Rode `db:push` e `db:seed` apenas para preparar o banco de teste. O seed carrega os dados de demonstração sem substituir registros que já existam. Inicie API e frontend em terminais separados:
 
 ```bash
 npm run server
 ```
 
-Em outro terminal, inicie a aplicação:
-
 ```bash
 npm run dev
 ```
 
-Abra `http://localhost:5173`. O JSON Server roda em `http://localhost:3001`; o Vite encaminha as chamadas com prefixo `/api` para ele.
-
-O `npm run server` executa antes o `npm run db:build`, que combina as sementes de `src/data` em `server/db.json`.
+Abra `http://localhost:5173`. O Vite encaminha as chamadas `/api` ao backend Express na porta definida por `PORT` (3001 no exemplo acima; 3000 se não estiver definida).
 
 ## Usuários de demonstração
 
@@ -77,7 +108,7 @@ A área de contas é exclusiva do administrador. O fornecedor pode consultar ven
 
 ### Entidades
 
-Cinco entidades ficam na API (JSON Server) e duas ficam só no navegador.
+Cinco coleções ficam no MongoDB e duas entidades ficam só no navegador.
 
 | Entidade | Coleção / armazenamento | Id | Descrição |
 | --- | --- | --- | --- |
@@ -95,7 +126,7 @@ Cinco entidades ficam na API (JSON Server) e duas ficam só no navegador.
 
 | Campo | Tipo | Observação |
 | --- | --- | --- |
-| `id` | texto | Chave primária (slug gerado a partir do título) |
+| `id` | texto | Identificador da API (slug gerado a partir do título); `_id` interno é criado pelo MongoDB |
 | `titulo` | texto | |
 | `resumo` | texto | Texto curto do card |
 | `detalhe` | texto | Texto do "Saiba mais" |
@@ -109,7 +140,7 @@ Cinco entidades ficam na API (JSON Server) e duas ficam só no navegador.
 
 | Campo | Tipo | Observação |
 | --- | --- | --- |
-| `id` | texto | Chave primária (`V-` + número) |
+| `id` | texto | Identificador da API (`V-` + número); `_id` interno é criado pelo MongoDB |
 | `data` | data (AAAA-MM-DD) | |
 | `cliente` | texto | Nome livre, não é referência a uma conta |
 | `tipo` | texto | `fisica` ou `juridica` |
@@ -124,7 +155,7 @@ Cinco entidades ficam na API (JSON Server) e duas ficam só no navegador.
 
 | Campo | Tipo | Observação |
 | --- | --- | --- |
-| `id` | texto | Chave primária (`PF-` + número) |
+| `id` | texto | Identificador da API (`PF-` + número); `_id` interno é criado pelo MongoDB |
 | `nome` | texto | |
 | `cpf` | texto | |
 | `email` | texto | |
@@ -137,7 +168,7 @@ Cinco entidades ficam na API (JSON Server) e duas ficam só no navegador.
 
 | Campo | Tipo | Observação |
 | --- | --- | --- |
-| `id` | texto | Chave primária (`PJ-` + número) |
+| `id` | texto | Identificador da API (`PJ-` + número); `_id` interno é criado pelo MongoDB |
 | `razaoSocial` | texto | |
 | `cnpj` | texto | |
 | `email` | texto | |
@@ -150,17 +181,17 @@ Cinco entidades ficam na API (JSON Server) e duas ficam só no navegador.
 
 | Campo | Tipo | Observação |
 | --- | --- | --- |
-| `id` | texto | Chave primária (`USR-` + número) |
+| `id` | texto | Identificador da API (`USR-` + número); `_id` interno é criado pelo MongoDB |
 | `nome` | texto | |
 | `email` | texto | Usado no login |
-| `senha` | texto | Guardada sem hash (apenas demonstração) |
+| `passwordHash` | texto | Hash scrypt; nunca enviado pela API |
 | `tipo` | texto | `admin`, `juridica` ou `fisica` |
 | `contaId` | texto | Referência a `Conta PF.id` ou `Conta PJ.id`; nulo no administrador |
 | `permissoes` | lista de textos | `vendas:read`, `vendas:write`, `produtos:write`, `contas:manage` |
 
 **Carrinho** (`localStorage`, chave `e-tecidos-carrinho`): lista de itens com `id` (id do produto) e `quantidade`.
 
-**Sessão** (`sessionStorage`): `id`, `nome`, `email`, `tipo`, `contaId` e `permissoes` do usuário. A senha não é guardada.
+**Sessão** (`sessionStorage`): JWT e dados públicos (`id`, `nome`, `email`, `tipo`, `contaId`, `permissoes`). A senha e seu hash não são guardados no navegador.
 
 ### Relacionamentos
 
@@ -190,37 +221,45 @@ C = criar, R = ler, U = atualizar (inclui suspender e reativar contas), D = excl
 Observações:
 
 - **Vendas:** ler exige `vendas:read` e criar, editar e excluir exigem `vendas:write`. Nenhuma tela de compra grava vendas; elas só nascem no painel do administrador.
-- **Contas:** o cadastro público (`/cadastro`) ainda não grava a conta, apenas escreve no console.
-- **Usuários:** não há tela para criar, editar ou excluir. A leitura acontece no login, que baixa a coleção inteira e compara e-mail e senha no navegador.
+- **Contas:** o cadastro público cria uma conta PF ou PJ e suas credenciais; dados de cartão não são coletados nem armazenados.
+- **Usuários:** credenciais não são expostas por endpoints de coleção; login verifica o hash no servidor e emite JWT.
 - **Carrinho e sessão:** o carrinho exige login para adicionar e ver. A sessão é criada no login e apagada ao sair.
 
 ## API
 
-Coleções: `produtos`, `vendas`, `contasPessoaFisica`, `contasPessoaJuridica` e `usuarios`.
+Coleções MongoDB: `produtos`, `vendas`, `contasPessoaFisica`, `contasPessoaJuridica` e `usuarios`.
 
 ```text
-GET    /api/produtos
-POST   /api/produtos
-PUT    /api/produtos/:id
-DELETE /api/produtos/:id
+POST   /api/auth/login
+POST   /api/auth/cadastrar
+GET    /api/health
+GET    /api/produtos                         público
+GET    /api/vendas                           vendas:read
+GET    /api/contasPessoaFisica               contas:manage
+GET    /api/contasPessoaJuridica             contas:manage
+POST   /api/{produtos,vendas,contas...}      permissão de escrita correspondente
+PUT/PATCH/DELETE /api/{coleção}/:id          permissão de escrita correspondente
 ```
 
-O cliente HTTP está em `src/utils/api.js`. As coleções consultadas ficam em cache no `localStorage` para exibição imediata e são atualizadas em segundo plano.
+Rotas protegidas exigem `Authorization: Bearer <JWT>`. O backend valida permissões e limita leitura e escrita de produtos e vendas do fornecedor ao `fornecedorId` da conta autenticada. O cliente HTTP está em `frontendd/src/utils/api.js`.
 
 ## Dados e persistência
 
-Os arquivos de `src/data` são as sementes iniciais (`produtosdb.json`, `vendasdb.json`, `contasPessoasFisicasdb.json`, `contasPessoasJuridicasdb.json`, `usuariosdb.json` e `configContasAdmin.json`). O `configContasAdmin.json` não é uma entidade: só descreve as colunas e os campos dos formulários das telas de contas.
+O schema Prisma fica em `backend/prisma/schema.prisma`. Execute `npm run db:push` para sincronizar os índices e coleções; `npm run db:seed` importa os arquivos de `frontendd/src/data` e converte as senhas demonstrativas em hashes. O seed não sobrescreve registros existentes.
 
-O JSON Server grava as alterações em `server/db.json` durante a execução. Ao rodar `npm run server` de novo, esse arquivo é recriado a partir das sementes, e as alterações feitas pela API não voltam para `src/data`.
+O conector MongoDB do Prisma requer uma instância configurada como replica set. Em produção/local, configure `MONGODB_URI` para esse replica set antes de executar os comandos.
 
 ## Estrutura
 
 ```text
-scripts/
-  build-db.js     Gera server/db.json a partir das sementes
-server/
-  db.json         Banco agregado do JSON Server (gerado)
-src/
+backend/src/
+  config/         MongoDB e logger
+  controllers/    Login, cadastro e CRUD
+  middleware/     JWT, permissões e erros
+  models/         Schemas Mongoose
+  routers/        Rotas REST
+  scripts/        Importação inicial de dados
+frontendd/src/
   auth/           Contexto, sessão, permissões e guardas de rota
   components/     Header, Bottom (rodapé), ProdutoCard, Carrinho, AdminLayout
   data/           Sementes e configuração em JSON
@@ -234,8 +273,9 @@ src/
 
 ```bash
 npm run dev       # inicia o Vite
-npm run server    # gera o banco e inicia o JSON Server
-npm run db:build  # regenera somente server/db.json
+npm run server    # inicia a API Express
+npm run db:push   # sincroniza o schema Prisma com o MongoDB
+npm run db:seed   # importa dados iniciais no MongoDB
 npm run build     # cria o bundle de produção
 npm run preview   # serve o bundle de produção
 npm run lint      # executa o ESLint
@@ -243,7 +283,7 @@ npm run lint      # executa o ESLint
 
 ## Segurança
 
-Este projeto é uma demonstração local. O JSON Server expõe usuários e senhas sem hash, e as permissões e o escopo por fornecedor são aplicados apenas no frontend: a API não bloqueia nenhuma operação. Não use essas credenciais, esse mecanismo de sessão nem o JSON Server em produção. Para isso, é preciso autenticação no servidor, armazenamento seguro de senhas e autorização em cada endpoint.
+As credenciais listadas são apenas para demonstração local. Use um segredo JWT forte e credenciais próprias em ambientes reais. A API protege rotas por JWT/permissão, armazena hash scrypt das senhas e não recebe dados de cartão.
 
 
 ## Pendências

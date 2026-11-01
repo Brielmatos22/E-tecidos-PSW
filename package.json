@@ -5,17 +5,23 @@
   "type": "module",
   "scripts": {
     "dev": "vite",
-    "db:build": "node scripts/build-db.js",
-    "server": "npm run db:build && json-server --watch server/db.json --port 3001",
+    "server": "npm --prefix backend run dev",
+    "db:push": "npm --prefix backend run db:push",
+    "db:seed": "npm --prefix backend run seed",
     "build": "vite build",
     "lint": "eslint .",
     "preview": "vite preview"
   },
   "dependencies": {
+    "@hookform/resolvers": "^7.0.0",
+    "@tanstack/react-query": "^5.105.0",
     "bootstrap": "^5.3.8",
+    "express": "^5.2.1",
     "react": "^19.2.8",
     "react-dom": "^19.2.8",
-    "react-router-dom": "^6.30.6"
+    "react-hook-form": "^7.91.0",
+    "react-router-dom": "^7.18.4",
+    "zod": "^4.6.7"
   },
   "devDependencies": {
     "@eslint/js": "^10.0.1",
@@ -26,7 +32,6 @@
     "eslint-plugin-react-hooks": "^7.1.1",
     "eslint-plugin-react-refresh": "^0.5.6",
     "globals": "^17.12.0",
-    "json-server": "^0.17.4",
     "vite": "^8.3.0"
   }
 }
