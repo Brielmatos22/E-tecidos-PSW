@@ -44,36 +44,6 @@
 .link-cadastro,
 .campo-login small { color: var(--text-soft); }
 
-.botao-google {
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  gap: 12px;
-  min-height: 48px;
-  border: 1px solid rgba(128, 97, 64, 0.18);
-  border-radius: 12px;
-  background: #fff;
-  color: var(--text);
-  font-weight: 700;
-  text-decoration: none;
-}
-
-.botao-google:hover,
-.botao-google:focus-visible { border-color: rgba(154, 107, 47, 0.4); background: #fffaf3; }
-.botao-google svg { width: 20px; height: 20px; }
-
-.divisor-login {
-  display: flex;
-  align-items: center;
-  gap: 12px;
-  margin: 26px 0;
-  color: var(--muted);
-  font-size: 0.78rem;
-  white-space: nowrap;
-}
-
-.divisor-login::before,
-.divisor-login::after { content: ""; height: 1px; flex: 1; background: rgba(154, 107, 47, 0.14); }
 .formulario-login { display: grid; gap: 20px; }
 .campo-login { display: flex; flex-direction: column; gap: 8px; }
 

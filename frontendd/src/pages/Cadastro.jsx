@@ -3,7 +3,7 @@ import Bottom from "../components/Bottom.jsx";
 import useCadastroForm from "../hooks/useCadastroForm.js";
 
 export default function Cadastro() {
-  const { tipoPessoa, pessoaJuridica, alterarTipoPessoa, enviar } = useCadastroForm();
+  const { tipoPessoa, pessoaJuridica, alterarTipoPessoa, enviar, erro, enviando } = useCadastroForm();
 
   return (
     <div className="pagina-cadastro">
@@ -18,6 +18,7 @@ export default function Cadastro() {
           </div>
 
           <form className="formulario-cadastro" onSubmit={enviar}>
+            {erro && <p className="alert alert-danger" role="alert">{erro}</p>}
             <fieldset className="border rounded p-3 mb-4">
               <legend className="float-none w-auto px-2 fs-6 fw-semibold">Tipo de cadastro</legend>
               <div className="opcoes-tipo">
@@ -151,6 +152,16 @@ export default function Cadastro() {
                     required={pessoaJuridica}
                   />
                 </div>
+              </div>
+            </fieldset>
+
+            <fieldset className="border rounded p-3 mb-4">
+              <legend className="float-none w-auto px-2 fs-6 fw-semibold">Acesso e contato</legend>
+              <div className="grade-formulario">
+                <div className="campo campo-largo">
+                  <label htmlFor="email">E-mail</label>
+                  <input className="form-control" id="email" name="email" type="email" autoComplete="email" required />
+                </div>
                 <div className="campo">
                   <label htmlFor="senha">Senha para login</label>
                   <input
@@ -159,52 +170,11 @@ export default function Cadastro() {
                     name="senha"
                     type="password"
                     minLength={8}
+                    pattern="(?=.*[A-Z])(?=.*[^A-Za-z0-9]).{8,}"
                     autoComplete="new-password"
-                    disabled={!pessoaJuridica}
-                    required={pessoaJuridica}
+                    required
                   />
-                  <small>Mínimo de 8 caracteres.</small>
-                </div>
-              </div>
-            </fieldset>
-
-            <fieldset className="border rounded p-3 mb-4">
-              <legend className="float-none w-auto px-2 fs-6 fw-semibold">Contato e pagamento(Opcional)</legend>
-              <div className="grade-formulario">
-                <div className="campo campo-largo">
-                  <label htmlFor="email">E-mail</label>
-                  <input className="form-control" id="email" name="email" type="email" autoComplete="email"/>
-                </div>
-                <div className="campo campo-largo">
-                  <label htmlFor="nome-cartao">Nome no cartão</label>
-                  <input className="form-control" id="nome-cartao" name="nome_cartao" type="text" autoComplete="cc-name"/>
-                </div>
-                <div className="campo campo-largo">
-                  <label htmlFor="numero-cartao">Número do cartão</label>
-                  <input
-                    className="form-control"
-                    id="numero-cartao"
-                    name="numero_cartao"
-                    type="text"
-                    inputMode="numeric"
-                    autoComplete="cc-number"
-                  />
-                </div>
-                <div className="campo">
-                  <label htmlFor="validade">Validade</label>
-                  <input className="form-control" id="validade" name="validade" type="month" autoComplete="cc-exp"/>
-                </div>
-                <div className="campo">
-                  <label htmlFor="codigo-seguranca">Código de segurança</label>
-                  <input
-                    className="form-control"
-                    id="codigo-seguranca"
-                    name="codigo_seguranca"
-                    type="password"
-                    inputMode="numeric"
-                    maxLength={4}
-                    autoComplete="cc-csc"
-                  />
+                  <small>Use 8 ou mais caracteres, uma letra maiúscula e um caractere especial.</small>
                 </div>
               </div>
             </fieldset>
@@ -215,7 +185,7 @@ export default function Cadastro() {
               <span>Concordo com os termos de uso e a política de privacidade.</span>
               </label>
             </div>
-            <button type="submit">Criar cadastro</button>
+            <button type="submit" disabled={enviando}>{enviando ? "Criando cadastro..." : "Criar cadastro"}</button>
           </form>
         </section>
       </main>
