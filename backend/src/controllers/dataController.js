@@ -91,7 +91,7 @@ const getRecord = (collection) =>
 
 const createRecord = (collection) =>
   collectionHandler(collection, (req) => {
-    const data = dataFor(collection, req.body, true);
+    const data = dataFor(collection, req.validatedBody, true);
     if (req.user.tipo === "juridica" && ["produtos", "vendas"].includes(collection)) {
       data.fornecedorId = req.user.contaId;
     }
@@ -100,7 +100,7 @@ const createRecord = (collection) =>
 
 const replaceRecord = (collection) =>
   collectionHandler(collection, async (req, where) => {
-    const data = dataFor(collection, req.body);
+    const data = dataFor(collection, req.validatedBody);
     data.id = req.params.id;
     if (req.user.tipo === "juridica" && ["produtos", "vendas"].includes(collection)) {
       data.fornecedorId = req.user.contaId;
@@ -112,7 +112,7 @@ const replaceRecord = (collection) =>
 
 const updateRecord = (collection) =>
   collectionHandler(collection, async (req, where) => {
-    const data = dataFor(collection, req.body);
+    const data = dataFor(collection, req.validatedBody);
     if (req.user.tipo === "juridica" && ["produtos", "vendas"].includes(collection)) {
       delete data.fornecedorId;
     }

@@ -1,17 +1,30 @@
 const jwt = require("jsonwebtoken");
 const prisma = require("../config/prisma");
+const { createToken } = require("../utils/authToken");
+
+const TOKEN_REFRESH_THRESHOLD_SECONDS = 60 * 60;
 
 function unauthorized(res) {
   return res.status(401).json({ message: "Autenticação necessária." });
 }
 
 async function authenticate(req, res, next) {
-  const authorization = req.get("authorization") ?? "";
-  const [scheme, token] = authorization.split(" ");
-  if (scheme !== "Bearer" || !token) return unauthorized(res);
+  const authorization = (req.get("authorization") ?? "").trim();
+  const bearerMatch = authorization.match(/^Bearer\s+(\S+)$/i);
+  if (!bearerMatch) return unauthorized(res);
 
   try {
-    const payload = jwt.verify(token, process.env.JWT_SECRET);
+    const payload = jwt.verify(bearerMatch[1], process.env.JWT_SECRET, {
+      algorithms: ["HS256"],
+    });
+    if (
+      !payload
+      || typeof payload !== "object"
+      || typeof payload.sub !== "string"
+      || !["admin", "fisica", "juridica"].includes(payload.tipo)
+      || typeof payload.exp !== "number"
+    ) return unauthorized(res);
+
     const user = await prisma.user.findUnique({ where: { id: payload.sub } });
     if (!user || user.tipo !== payload.tipo) return unauthorized(res);
 
@@ -34,6 +47,12 @@ async function authenticate(req, res, next) {
       contaId: user.contaId,
       permissoes: user.permissoes,
     };
+    if (typeof payload.exp === "number") {
+      const remainingLifetime = payload.exp - Math.floor(Date.now() / 1000);
+      if (remainingLifetime <= TOKEN_REFRESH_THRESHOLD_SECONDS) {
+        res.set("X-Access-Token", createToken(req.user));
+      }
+    }
     return next();
   } catch (error) {
     if (error.name === "TokenExpiredError" || error.name === "JsonWebTokenError") {

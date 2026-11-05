@@ -94,6 +94,16 @@ npm run dev
 
 Abra `http://localhost:5173`. O Vite encaminha as chamadas `/api` ao backend Express na porta definida por `PORT` (3001 no exemplo acima; 3000 se não estiver definida).
 
+## Executar com Docker
+
+Com Docker Engine e Docker Compose instalados, crie o arquivo `.env` na raiz a partir de `.env.example` e substitua `JWT_SECRET` por um segredo aleatório com pelo menos 32 caracteres. Inicie os serviços:
+
+```bash
+docker compose up --build
+```
+
+A aplicação ficará disponível em `http://localhost:8080`. O Compose inicia o frontend, a API e um MongoDB local configurado como replica set de nó único, necessário para as transações do Prisma. Os dados do banco ficam no volume `mongo-data`. Para parar os serviços, use `docker compose down`; para também remover o banco local, use `docker compose down --volumes`.
+
 ## Usuários de demonstração
 
 | Perfil | E-mail | Senha | Acesso |

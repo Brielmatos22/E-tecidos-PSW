@@ -1,7 +1,17 @@
 const logger = require("../config/logger");
+const { ZodError } = require("zod");
 
 function errorHandler(error, _req, res, _next) {
   void _next;
+  if (error instanceof ZodError) {
+    return res.status(400).json({
+      message: error.issues[0]?.message ?? "Os dados enviados são inválidos.",
+      errors: error.issues.map((issue) => ({
+        field: issue.path.join("."),
+        message: issue.message,
+      })),
+    });
+  }
   if (error.status) {
     return res.status(error.status).json({ message: error.message });
   }

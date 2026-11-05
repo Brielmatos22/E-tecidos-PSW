@@ -1,14 +1,34 @@
 const API_BASE = "/api";
 const CACHE_PREFIX = "e-tecidos:cache:v2:";
 const SESSION_KEY = "e-tecidos:session:v1";
+const SESSION_REFRESHED_EVENT = "e-tecidos:session-refreshed";
+const SESSION_EXPIRED_EVENT = "e-tecidos:session-expired";
 
-function getAuthHeaders() {
+function getSession() {
   try {
-    const session = JSON.parse(sessionStorage.getItem(SESSION_KEY) ?? "null");
-    return session?.token ? { Authorization: `Bearer ${session.token}` } : {};
+    return JSON.parse(sessionStorage.getItem(SESSION_KEY) ?? "null");
   } catch {
-    return {};
+    return null;
   }
+}
+
+function saveRefreshedToken(session, token) {
+  if (!session?.token || session.token === token) return;
+
+  const updatedSession = { ...session, token };
+  sessionStorage.setItem(SESSION_KEY, JSON.stringify(updatedSession));
+  window.dispatchEvent(new CustomEvent(SESSION_REFRESHED_EVENT, { detail: updatedSession }));
+}
+
+function expireSessionIfCurrent(session) {
+  if (!session?.token || session.token !== getSession()?.token) return;
+
+  sessionStorage.removeItem(SESSION_KEY);
+  window.dispatchEvent(new Event(SESSION_EXPIRED_EVENT));
+}
+
+function getAuthHeaders(session) {
+  return session?.token ? { Authorization: `Bearer ${session.token}` } : {};
 }
 
 export function getCached(collection) {
@@ -39,14 +59,20 @@ function updateCached(collection, update) {
 
 async function request(collection, { id, method = "GET", data } = {}) {
   const resource = id === undefined ? collection : `${collection}/${encodeURIComponent(id)}`;
+  const session = getSession();
   const response = await fetch(`${API_BASE}/${resource}`, {
     method,
     headers: {
-      ...getAuthHeaders(),
+      ...getAuthHeaders(session),
       ...(data === undefined ? {} : { "Content-Type": "application/json" }),
     },
     body: data === undefined ? undefined : JSON.stringify(data),
   });
+  if (response.status === 401) expireSessionIfCurrent(session);
+  const refreshedToken = response.headers.get("X-Access-Token");
+  if (refreshedToken && session?.token === getSession()?.token) {
+    saveRefreshedToken(session, refreshedToken);
+  }
   const responseBody = await response.text();
   const result = responseBody ? JSON.parse(responseBody) : null;
 

@@ -6,6 +6,7 @@ const connectDatabase = require("../config/bd");
 const prisma = require("../config/prisma");
 const logger = require("../config/logger");
 const { hashPassword } = require("../utils/HashPassword");
+const { seedSchemas } = require("../validation/schemas");
 
 const dataDirectory = path.resolve(__dirname, "../../../frontendd/src/data");
 const collections = [
@@ -17,7 +18,7 @@ const collections = [
 
 async function seedCollection(filename, model) {
   const contents = await fs.readFile(path.join(dataDirectory, filename), "utf8");
-  const records = JSON.parse(contents);
+  const records = seedSchemas[filename].parse(JSON.parse(contents));
   for (const record of records) {
     await model.upsert({
       where: { id: record.id },
@@ -30,7 +31,7 @@ async function seedCollection(filename, model) {
 
 async function seedUsers() {
   const contents = await fs.readFile(path.join(dataDirectory, "usuariosdb.json"), "utf8");
-  const users = JSON.parse(contents);
+  const users = seedSchemas["usuariosdb.json"].parse(JSON.parse(contents));
   for (const user of users) {
     const { senha, ...publicData } = user;
     await prisma.user.upsert({

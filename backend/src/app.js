@@ -9,6 +9,7 @@ const app = express();
 app.disable("x-powered-by");
 app.use(cors({
   origin: process.env.CORS_ORIGIN ? process.env.CORS_ORIGIN.split(",").map((origin) => origin.trim()) : true,
+  exposedHeaders: ["X-Access-Token"],
 }));
 app.use(express.json({ limit: "100kb" }));
 app.use((req, res, next) => {

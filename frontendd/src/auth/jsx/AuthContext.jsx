@@ -1,7 +1,9 @@
-import { useCallback, useMemo, useState } from "react";
+import { useCallback, useEffect, useMemo, useState } from "react";
 import { AuthContext } from "../js/context.js";
 
 const SESSION_KEY = "e-tecidos:session:v1";
+const SESSION_REFRESHED_EVENT = "e-tecidos:session-refreshed";
+const SESSION_EXPIRED_EVENT = "e-tecidos:session-expired";
 
 function readSession() {
   try {
@@ -14,6 +16,17 @@ function readSession() {
 
 export function AuthProvider({ children }) {
   const [user, setUser] = useState(readSession);
+
+  useEffect(() => {
+    const handleSessionRefresh = (event) => setUser(event.detail);
+    const handleSessionExpiration = () => setUser(null);
+    window.addEventListener(SESSION_REFRESHED_EVENT, handleSessionRefresh);
+    window.addEventListener(SESSION_EXPIRED_EVENT, handleSessionExpiration);
+    return () => {
+      window.removeEventListener(SESSION_REFRESHED_EVENT, handleSessionRefresh);
+      window.removeEventListener(SESSION_EXPIRED_EVENT, handleSessionExpiration);
+    };
+  }, []);
 
   const saveSession = useCallback((sessao) => {
     sessionStorage.setItem(SESSION_KEY, JSON.stringify(sessao));

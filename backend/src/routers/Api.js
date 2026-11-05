@@ -2,6 +2,8 @@ const express = require("express");
 const authRouter = require("./auth");
 const produtosRouter = require("./produtosRouters");
 const { authenticate, requirePermission } = require("../middleware/auth");
+const validate = require("../middleware/validate");
+const { collectionSchemasByName } = require("../validation/schemas");
 const {
   listCollection,
   getRecord,
@@ -30,9 +32,10 @@ for (const [collection, permission] of Object.entries(resources)) {
   route.get("/", listCollection(collection));
   route.get("/:id", getRecord(collection));
   const writePermission = collection === "vendas" ? "vendas:write" : permission;
-  route.post("/", requirePermission(writePermission), createRecord(collection));
-  route.put("/:id", requirePermission(writePermission), replaceRecord(collection));
-  route.patch("/:id", requirePermission(writePermission), updateRecord(collection));
+  const schemas = collectionSchemasByName[collection];
+  route.post("/", requirePermission(writePermission), validate(schemas.create), createRecord(collection));
+  route.put("/:id", requirePermission(writePermission), validate(schemas.replace), replaceRecord(collection));
+  route.patch("/:id", requirePermission(writePermission), validate(schemas.update), updateRecord(collection));
   route.delete("/:id", requirePermission(writePermission), deleteRecord(collection));
   router.use(`/${collection}`, route);
 }

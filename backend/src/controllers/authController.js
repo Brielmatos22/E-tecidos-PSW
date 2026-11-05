@@ -1,7 +1,7 @@
 const { randomBytes } = require("node:crypto");
-const jwt = require("jsonwebtoken");
 const prisma = require("../config/prisma");
 const { hashPassword, comparePassword } = require("../utils/HashPassword");
+const { createToken } = require("../utils/authToken");
 
 const accountsByType = {
   fisica: prisma.accountPhysical,
@@ -25,23 +25,15 @@ function publicUser(user) {
   };
 }
 
-function createToken(user) {
-  if (!process.env.JWT_SECRET || process.env.JWT_SECRET.length < 32) {
-    throw new Error("JWT_SECRET precisa ter pelo menos 32 caracteres.");
-  }
-  return jwt.sign({ sub: user.id, tipo: user.tipo }, process.env.JWT_SECRET, { expiresIn: "8h" });
-}
-
 async function login(req, res, next) {
   try {
-    const email = typeof req.body?.email === "string" ? req.body.email.trim().toLowerCase() : "";
-    const password = req.body?.senha;
-    if (!email || typeof password !== "string") {
-      return res.status(400).json({ message: "Informe e-mail e senha." });
-    }
+    const { email, senha: password } = req.validatedBody;
 
     const user = await prisma.user.findUnique({ where: { email } });
     if (!user || !(await comparePassword(password, user.passwordHash))) {
+      return res.status(401).json({ message: "E-mail ou senha inválidos." });
+    }
+    if (!["admin", "fisica", "juridica"].includes(user.tipo)) {
       return res.status(401).json({ message: "E-mail ou senha inválidos." });
     }
     if (user.tipo !== "admin") {
@@ -61,36 +53,12 @@ async function login(req, res, next) {
   }
 }
 
-function requiredText(value, field) {
-  if (typeof value !== "string" || !value.trim()) {
-    const error = new Error(`O campo ${field} é obrigatório.`);
-    error.status = 400;
-    throw error;
-  }
-  return value.trim();
-}
-
 async function register(req, res, next) {
   try {
-    const body = req.body ?? {};
+    const body = req.validatedBody;
     const type = body.tipo;
-    if (!["fisica", "juridica"].includes(type)) {
-      return res.status(400).json({ message: "Tipo de cadastro inválido." });
-    }
-
-    const email = requiredText(body.email, "e-mail").toLowerCase();
-    if (email.length > 254 || !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)) {
-      return res.status(400).json({ message: "Informe um e-mail válido." });
-    }
+    const email = body.email;
     const password = body.senha;
-    if (typeof password !== "string" || !password.trim()) {
-      return res.status(400).json({ message: "O campo senha é obrigatório." });
-    }
-    if (password.length > 128 || !/(?=.*[A-Z])(?=.*[^A-Za-z0-9]).{8,}/.test(password)) {
-      return res.status(400).json({
-        message: "Use 8 ou mais caracteres, uma letra maiúscula e um caractere especial.",
-      });
-    }
 
     const accountId = `${type === "fisica" ? "PF" : "PJ"}-${randomBytes(5).toString("hex").toUpperCase()}`;
     const userId = `USR-${randomBytes(5).toString("hex").toUpperCase()}`;
@@ -98,32 +66,24 @@ async function register(req, res, next) {
     const accountData = type === "fisica"
       ? {
           id: accountId,
-          nome: requiredText(body.nome, "nome"),
-          cpf: requiredText(body.cpf, "CPF"),
-          nascimento: requiredText(body.nascimento ?? body.data_nascimento, "data de nascimento"),
+          nome: body.nome.trim(),
+          cpf: body.cpf.trim(),
+          nascimento: (body.nascimento || body.data_nascimento).trim(),
           email,
-          endereco: requiredText(body.endereco, "endereço"),
+          endereco: body.endereco.trim(),
           status: "ativa",
           criadoEm: date,
         }
       : {
           id: accountId,
-          razaoSocial: requiredText(body.razaoSocial ?? body.razao_social, "nome da empresa"),
-          cnpj: requiredText(body.cnpj, "CNPJ"),
+          razaoSocial: (body.razaoSocial || body.razao_social).trim(),
+          cnpj: body.cnpj.trim(),
           email,
-          localizacao: requiredText(body.localizacao, "localização"),
-          descricao: requiredText(body.descricao, "descrição"),
+          localizacao: body.localizacao.trim(),
+          descricao: body.descricao.trim(),
           status: "ativa",
           criadoEm: date,
         };
-
-    const document = type === "fisica" ? accountData.cpf : accountData.cnpj;
-    if (type === "fisica" && !/^\d{11}$/.test(document.replace(/\D/g, ""))) {
-      return res.status(400).json({ message: "Informe um CPF com 11 dígitos." });
-    }
-    if (type === "juridica" && !/^\d{14}$/.test(document.replace(/\D/g, ""))) {
-      return res.status(400).json({ message: "Informe um CNPJ com 14 dígitos." });
-    }
 
     const userData = {
       id: userId,
