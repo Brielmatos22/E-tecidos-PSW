@@ -26,6 +26,8 @@ Loja demonstrativa de tecidos feita com **React**, **Vite**, **React Router**, *
 
 ## Rotas
 
+Consulte a [referência da API](docs/API.md) para endpoints, autenticação, permissões, modelos de dados e exemplos de requisição.
+
 | Rota | Acesso | Descrição |
 | --- | --- | --- |
 | `/` | Público | Loja |
